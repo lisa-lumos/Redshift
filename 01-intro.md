@@ -23,6 +23,31 @@ A cluster contains one or more databases. User data is stored on the compute nod
 Amazon Redshift is based on PostgreSQL. Amazon Redshift and PostgreSQL have many differences that you need to take into account, as you design and develop your data warehouse applications.
 
 ## Performance
+By selecting an appropriate distribution key for each table, you can optimize the distribution of data to balance the workload and minimize movement of data from node to node.
+
+Loading data from multiple flat files takes advantage of parallel processing by spreading the workload across multiple nodes while simultaneously reading from multiple files.
+
+Columnar storage.
+
+Data compression.
+
+The best way to enable data compression on table columns is by allowing Amazon Redshift to apply optimal compression encodings when you load the table with data.
+
+Amazon Redshift caches the results of certain types of queries in memory on the leader node. When a user submits a query, Amazon Redshift checks the results cache for a valid, cached copy of the query results. If a match is found in the result cache, Amazon Redshift uses the cached results and doesn't run the query. Result caching is transparent to the user.
+
+Result caching is turned on by default. You can turn it off for a session with a command. 
+
+Amazon Redshift uses cached results for a new query when all of the following are true:
+- The user submitting the query has access permission to the objects used in the query.
+- The table or views in the query haven't been modified.
+- The query doesn't use a function that must be evaluated each time it's run, such as GETDATE.
+- The query doesn't reference Amazon Redshift Spectrum external tables.
+- Configuration parameters that might affect query results are unchanged.
+- The query syntactically matches the cached query.
+
+Amazon Redshift doesn't cache some large query result sets. It determines whether to cache query results based on a number of factors, including the number of entries in the cache, and the instance type of your cluster.
+
+The compiled code is cached and shared across sessions on the same cluster. As a result, future runs of the same query will be faster, often even with different parameters.
 
 
 
