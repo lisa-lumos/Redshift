@@ -49,9 +49,8 @@ Amazon Redshift doesn't cache some large query result sets. It determines whethe
 
 The compiled code is cached and shared across sessions on the same cluster. As a result, future runs of the same query will be faster, often even with different parameters.
 
-
-
-
+## Columnar storage
+An added advantage is that, since each block holds the same type of data, block data can use a compression scheme selected specifically for the column data type, further reducing disk space and I/O.
 
 
 
