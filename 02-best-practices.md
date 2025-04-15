@@ -30,7 +30,14 @@ Some suggestions for the best approach follow:
 
 To have Amazon Redshift choose the appropriate distribution style, specify AUTO for the distribution style.
 
+## designing tables - Let COPY choose compression encodings
+You can specify compression encodings when you create a table, but in most cases, automatic compression produces the best results.
 
+ENCODE AUTO is the default for tables. When a table is set to ENCODE AUTO, Amazon Redshift automatically manages compression encoding for all columns in the table.
+
+There is a performance cost for automatic compression encoding, but only if the table is empty and does not already have compression encoding. 
+
+For short-lived tables and tables that you create frequently, such as staging tables, load the table once with automatic compression or run the ANALYZE COMPRESSION command. Then use those encodings to create new tables. You can add the encodings to the CREATE TABLE statement, or use CREATE TABLE LIKE to create a new table with the same encoding.
 
 
 
