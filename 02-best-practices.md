@@ -39,7 +39,10 @@ There is a performance cost for automatic compression encoding, but only if the 
 
 For short-lived tables and tables that you create frequently, such as staging tables, load the table once with automatic compression or run the ANALYZE COMPRESSION command. Then use those encodings to create new tables. You can add the encodings to the CREATE TABLE statement, or use CREATE TABLE LIKE to create a new table with the same encoding.
 
+## designing tables - Define primary key and foreign key constraints
+Define primary key and foreign key constraints between tables wherever appropriate. Even though they are informational only, the query optimizer uses those constraints to generate more efficient query plans.
 
+Amazon Redshift does not enforce unique, primary-key, and foreign-key constraints.
 
 
 
