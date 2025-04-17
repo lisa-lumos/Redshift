@@ -44,7 +44,10 @@ Define primary key and foreign key constraints between tables wherever appropria
 
 Amazon Redshift does not enforce unique, primary-key, and foreign-key constraints.
 
+## designing tables - Use the smallest possible column size
+Don't make it a practice to use the maximum column size for convenience. 
 
+Instead, consider the largest values you are likely to store in your columns and size them accordingly. For instance, a CHAR column for storing U.S. state and territory abbreviations used by the post office only needs to be CHAR(2).
 
 
 
