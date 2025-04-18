@@ -49,7 +49,10 @@ Don't make it a practice to use the maximum column size for convenience.
 
 Instead, consider the largest values you are likely to store in your columns and size them accordingly. For instance, a CHAR column for storing U.S. state and territory abbreviations used by the post office only needs to be CHAR(2).
 
+## designing tables - Use date/time data types for date columns
+Amazon Redshift stores DATE and TIMESTAMP data more efficiently than CHAR or VARCHAR, which results in better query performance. 
 
+Use the DATE or TIMESTAMP data type, depending on the resolution you need, rather than a character type when storing date/time information.
 
 
 
