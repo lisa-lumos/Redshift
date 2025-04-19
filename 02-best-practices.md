@@ -54,7 +54,18 @@ Amazon Redshift stores DATE and TIMESTAMP data more efficiently than CHAR or VAR
 
 Use the DATE or TIMESTAMP data type, depending on the resolution you need, rather than a character type when storing date/time information.
 
+## loading data - Loading data files
+The COPY command loads data in parallel from Amazon S3, Amazon EMR, Amazon DynamoDB, or multiple data sources on remote hosts. COPY loads large amounts of data much more efficiently than using INSERT statements, and stores the data more effectively as well.
 
+When you load data from a file that can't be split, Amazon Redshift is forced to perform a serialized load, which is much slower. 
+
+The following files can be automatically split when their data is loaded:
+- an uncompressed CSV file
+- a columnar file (Parquet/ORC)
+
+Amazon Redshift automatically splits files 128MB or larger into chunks.
+
+File types such as JSON, or CSV, when compressed with other compression algorithms, such as GZIP, aren't automatically split. For these we recommend manually splitting the data into multiple smaller files that are close in size, from 1 MB to 1 GB after compression. Additionally, make the number of files a multiple of the number of slices in your cluster.
 
 
 
