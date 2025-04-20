@@ -104,6 +104,23 @@ Schedule long-running operations, such as large data loads or VACUUM operation, 
 - Avoid using functions in query predicates. They can drive up the cost of the query by requiring large numbers of rows to resolve the intermediate steps of the query.
 - If you use both GROUP BY and ORDER BY clauses, make sure that you put the columns in the same order in both. 
 
+## Viewing Amazon Redshift Advisor recommendations
+You can access Amazon Redshift Advisor recommendations using the Amazon Redshift console, Amazon Redshift API, or AWS CLI. To access recommendations you must have permission redshift:ListRecommendationsattached to your IAM role or identity.
+
+To help you  prioritize your optimizations, Advisor ranks recommendations by order of impact. 
+
+Advisor only displays recommendations that should have a significant impact on performance and operations.
+
+Ensure that each COPY that loads a significant amount of data, or runs for a significant duration, ingests compressed data objects from Amazon S3.
+
+The ideal object size is 1-128 MB after compression. 
+
+As a best practice, we recommend isolating databases in Amazon Redshift from one another.  Queries run in a specific database and can't access data from any other database on the cluster. 
+
+
+
+
+
 
 
 
