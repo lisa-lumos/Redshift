@@ -73,6 +73,10 @@ When you want to compress large load files, we recommend that you use gzip, lzop
 ## loading data - Verify data files before and after a load
 After the load operation is complete, query the STL_LOAD_COMMITS system table to verify that the expected files were loaded.
 
+## loading data - Use a multi-row insert
+If a COPY command is not an option and you require SQL inserts, use a multi-row insert whenever possible. Data compression is inefficient when you add data only one row or a few rows at a time.
+
+Multi-row inserts improve performance by batching up a series of inserts.
 
 
 
