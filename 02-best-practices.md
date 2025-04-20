@@ -67,7 +67,8 @@ Amazon Redshift automatically splits files 128MB or larger into chunks.
 
 File types such as JSON, or CSV, when compressed with other compression algorithms, such as GZIP, aren't automatically split. For these we recommend manually splitting the data into multiple smaller files that are close in size, from 1 MB to 1 GB after compression. Additionally, make the number of files a multiple of the number of slices in your cluster.
 
-
+## loading data - Compressing your data files
+When you want to compress large load files, we recommend that you use gzip, lzop, bzip2, or Zstandard to compress them and split the data into multiple smaller files.
 
 
 
