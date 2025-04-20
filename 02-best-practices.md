@@ -70,6 +70,9 @@ File types such as JSON, or CSV, when compressed with other compression algorith
 ## loading data - Compressing your data files
 When you want to compress large load files, we recommend that you use gzip, lzop, bzip2, or Zstandard to compress them and split the data into multiple smaller files.
 
+## loading data - Verify data files before and after a load
+After the load operation is complete, query the STL_LOAD_COMMITS system table to verify that the expected files were loaded.
+
 
 
 
