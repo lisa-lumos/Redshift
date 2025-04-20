@@ -78,14 +78,31 @@ If a COPY command is not an option and you require SQL inserts, use a multi-row 
 
 Multi-row inserts improve performance by batching up a series of inserts.
 
+## loading data - Use a bulk insert
+Use a bulk insert operation with a SELECT clause for high-performance data insertion.
 
+Use the INSERT and CREATE TABLE AS commands when you need to move data or a subset of data from one table into another.
 
+## loading data - Load data in sort key order
+Load your data in sort key order to avoid needing to vacuum.
 
+## loading data - Use time-series tables
+If your data has a fixed retention period, you can organize your data as a sequence of time-series tables. In such a sequence, each table is identical but contains data for different time ranges.
 
+You can remove old data by running a DROP TABLE command on the corresponding tables. This approach is much faster than running a large-scale DELETE process and saves you from having to run a subsequent VACUUM process to reclaim space. To hide the fact that the data is stored in different tables, you can create a UNION ALL view. When you delete old data, refine your UNION ALL view to remove the dropped tables.
 
+To signal the optimizer to skip the scan on tables that don't match the query filter, your view definition filters for the date range that corresponds to each table.
 
+## loading data - Schedule around maintenance windows
+If a scheduled maintenance occurs while a query is running, the query is terminated and rolled back, and you need to restart it. 
 
+Schedule long-running operations, such as large data loads or VACUUM operation, to avoid maintenance windows. 
 
+## designing queries
+- Avoid using select *. Include only the columns you need.
+- Use subqueries in cases where one table in the query is used only for predicate conditions and the subquery returns a small number of rows (less than about 200). To avoid a join. 
+- Avoid using functions in query predicates. They can drive up the cost of the query by requiring large numbers of rows to resolve the intermediate steps of the query.
+- If you use both GROUP BY and ORDER BY clauses, make sure that you put the columns in the same order in both. 
 
 
 
