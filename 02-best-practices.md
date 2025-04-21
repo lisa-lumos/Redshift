@@ -115,7 +115,23 @@ Ensure that each COPY that loads a significant amount of data, or runs for a sig
 
 The ideal object size is 1-128 MB after compression. 
 
-As a best practice, we recommend isolating databases in Amazon Redshift from one another.  Queries run in a specific database and can't access data from any other database on the cluster. 
+As a best practice, we recommend isolating databases in Amazon Redshift from one another. Queries run in a specific database and can't access data from any other database on the cluster. 
+
+Consider moving each actively queried database to a separate dedicated cluster.
+
+Because a user must connect to each database specifically, and queries can only access a single database, moving databases to separate clusters has minimal impact for users. 
+
+Workload  management (WLM) defines how queries are routed to the queues. Amazon Redshift allocates each queue a portion of the cluster's available memory. A queue's memory is divided  among the queue's query slots. 
+
+Consider reducing the configured slot count for queues where the slots have never been fully used.
+
+When you load data into an empty table with compression encoding declared with the COPY command, Amazon Redshift applies storage compression. This optimization ensures that data in your cluster is stored efficiently even when loaded by end users. The analysis required to apply compression can require significant time. 
+
+When you load data as part of a structured process, such as in an overnight extract, transform, load (ETL) batch, you can define the compression beforehand. You can also optimize your table definitions to skip this phase permanently without any negative impacts. 
+
+
+
+
 
 
 
