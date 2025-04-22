@@ -129,13 +129,35 @@ When you load data into an empty table with compression encoding declared with t
 
 When you load data as part of a structured process, such as in an overnight extract, transform, load (ETL) batch, you can define the compression beforehand. You can also optimize your table definitions to skip this phase permanently without any negative impacts. 
 
+Use the column ENCODE parameter when creating any tables that you load using the COPY command. 
 
+The best solution is to use column encoding during table creation, because this also maintains the benefit of storing compressed data on disk. 
 
+Ensure that all tables of significant size created during your ETL processes (for example, staging tables and temporary tables) declare a compression encoding for all columns except the first sort key. 
 
+If you are confident that the table will remain extremely small, turn off compression altogether with the COMPUPDATE OFF parameter. Otherwise, create the table with explicit compression before loading it with the COPY command. 
 
+1. Optimize COPY commands that load fewer files than the number of cluster nodes.  
+2. Optimize COPY commands that load fewer files than the number of cluster slices.  
+3. Optimize COPY commands where the number of files is not a multiple of the number of cluster  slices. 
 
+The number of slices in a node depends on the node size of the cluster.
 
+Amazon Redshift doesn't take file size into account when dividing the workload. Split your load  data files so that the files are about equal size, between 1 MB and 1 GB after compression. 
 
+The cost estimates are based on table statistics gathered using the ANALYZE command.  When statistics are out of date or missing, the database might choose a less efficient plan for query  execution, especially for complex queries. Maintaining current statistics helps complex queries run  in the shortest possible time. 
+
+We recommend  running ANALYZE whenever a significant number of new data rows are loaded into an existing  table with COPY or INSERT commands.
+
+The default ANALYZE threshold is 10%. This default means that the ANALYZE command  skips a given table if fewer than 10% of the table's rows have changed since the last  ANALYZE. As a result, you might choose to issue ANALYZE commands at the end of each ETL  process. Taking this approach means that ANALYZE is often skipped but also ensures that ANALYZE  runs when needed. 
+
+By default, ANALYZE  collects statistics for all columns in the table specified. If needed, you can reduce the time required  to run ANALYZE by running ANALYZE only for the columns where it has the most impact.
+
+You can also let Amazon  Redshift choose which columns to analyze by specifying ANALYZE PREDICATE COLUMNS. 
+
+Short query acceleration (SQA) prioritizes selected short-running queries ahead of longer-running  queries. SQA runs short-running queries in a dedicated space, so that SQA queries aren't forced to  wait in queues behind longer queries. SQA only prioritizes queries that are short-running and are in  a user-defined queue.
+
+An appropriate DISTKEY places a similar number of rows on each node slice and is frequently  referenced in join conditions. An optimized join occurs when tables are joined on their DISTKEY  columns, accelerating query performance. 
 
 
 
