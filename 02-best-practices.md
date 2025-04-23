@@ -159,7 +159,7 @@ Short query acceleration (SQA) prioritizes selected short-running queries ahead 
 
 An appropriate DISTKEY places a similar number of rows on each node slice and is frequently  referenced in join conditions. An optimized join occurs when tables are joined on their DISTKEY  columns, accelerating query performance. 
 
-
+Redistributing a large table with ALTER TABLE consumes cluster resources and requires temporary  table locks at various times. Implement each recommendation group when other cluster workload  is light. For more details on optimizing table distribution properties. 
 
 
 
