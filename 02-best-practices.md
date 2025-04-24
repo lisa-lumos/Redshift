@@ -161,12 +161,8 @@ An appropriate DISTKEY places a similar number of rows on each node slice and is
 
 Redistributing a large table with ALTER TABLE consumes cluster resources and requires temporary  table locks at various times. Implement each recommendation group when other cluster workload  is light. For more details on optimizing table distribution properties. 
 
+In practice, compound sort keys are more effective than interleaved sort  keys for the vast majority of Amazon Redshift workloads.
 
+If a table is small, it's more  efficient not to have a sort key to avoid sort key storage overhead. 
 
-
-
-
-
-
-
-
+Changing column compression encodings with ALTER TABLE consumes cluster resources and  requires table locks at various times. It's best to implement recommendations when the cluster  workload is light. 
