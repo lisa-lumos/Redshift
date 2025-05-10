@@ -5,6 +5,7 @@ https://docs.aws.amazon.com/prescriptive-guidance/latest/query-best-practices-re
 This guide is intended for data engineers, data architects, and data analysts who design or use tables and queries in Amazon Redshift.
 
 ## 1. Architecture components
+skip 
 
 ## 2. Query performance factors
 
