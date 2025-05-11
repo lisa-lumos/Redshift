@@ -8,6 +8,9 @@ This guide is intended for data engineers, data architects, and data analysts wh
 skip 
 
 ## 2. Query performance factors
+Sort keys: Amazon Redshift stores data on disk in sorted order according to a table's sort keys. The query optimizer and the query processor use the information about where the data is located within a compute node to reduce the number of blocks that must be scanned. This improves query speed significantly by reducing the amount of data to process. We recommend that you use sort keys to facilitate filters in the WHERE clause. 
+
+
 
 ## 3. Best practices for tables
 
