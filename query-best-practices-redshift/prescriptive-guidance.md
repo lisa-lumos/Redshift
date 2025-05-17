@@ -12,6 +12,9 @@ Sort keys: Amazon Redshift stores data on disk in sorted order according to a ta
 
 Data compression: Reduces storage requirements, which reduces disk I/O and improves query performance. When you run a query, the compressed data is read into memory and then uncompressed when the query runs. By loading less data into memory, Amazon Redshift can allocate more memory to analyzing the data. Because columnar storage stores similar data sequentially, Amazon Redshift can apply adaptive compression encodings specifically tied to columnar data types. The best way to enable data compression on table columns is by using the AUTO option in Amazon Redshift to apply optimal compression encodings when you load the table with data. 
 
+Data distribution: Amazon Redshift stores data on the compute nodes according to a table's distribution style. When you run a query, the query optimizer redistributes the data to the compute nodes as needed to perform any joins and aggregations. Choosing the right distribution style for a table helps minimize the impact of the redistribution step by locating the data where it needs to be before the joins are performed. We recommend that you use distribution keys to facilitate the most common joins.
+
+
 ## 3. Best practices for tables
 
 ## 4. Best practices for queries
