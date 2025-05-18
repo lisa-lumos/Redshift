@@ -14,6 +14,10 @@ Data compression: Reduces storage requirements, which reduces disk I/O and impro
 
 Data distribution: Amazon Redshift stores data on the compute nodes according to a table's distribution style. When you run a query, the query optimizer redistributes the data to the compute nodes as needed to perform any joins and aggregations. Choosing the right distribution style for a table helps minimize the impact of the redistribution step by locating the data where it needs to be before the joins are performed. We recommend that you use distribution keys to facilitate the most common joins.
 
+Table maintenance: Although Amazon Redshift provides industry-leading performance out of the box for most workloads, keeping Amazon Redshift clusters running well requires maintenance. Updating and deleting data creates dead rows that must be vacuumed, and even append-only tables must be resorted if the append order isn't consistent with the sort key.
+
+
+
 
 ## 3. Best practices for tables
 
