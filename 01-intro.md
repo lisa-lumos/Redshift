@@ -1,8 +1,10 @@
 # introduction
 ## Architecture
-The core infrastructure component of an Amazon Redshift data warehouse is a cluster.
+The core infra component of an Amazon Redshift data warehouse is a cluster.
 
-A cluster is composed of one/more compute nodes. If a cluster is provisioned with two or more compute nodes, an additional leader node coordinates the compute nodes and handles external communication. Your client application interacts directly only with the leader node. The compute nodes are transparent to external applications.
+A cluster is composed of one/more compute nodes. If a cluster is provisioned with 2/+ compute nodes, an additional leader node coordinates the compute nodes, and handles external communication. 
+
+Your client application interacts only with the leader node. The compute nodes are transparent to external applications.
 
 It parses and develops execution plans to carry out database operations, aka, the series of steps necessary to obtain results for complex queries. Based on the execution plan, the leader node compiles code, distributes the compiled code to the compute nodes, and assigns a portion of the data to each compute node.
 
