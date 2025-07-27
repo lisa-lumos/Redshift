@@ -6,9 +6,11 @@ A cluster is composed of one/more compute nodes. If a cluster is provisioned wit
 
 Your client application interacts only with the leader node. The compute nodes are transparent to external applications.
 
-It parses and develops execution plans to carry out database operations, aka, the series of steps necessary to obtain results for complex queries. Based on the execution plan, the leader node compiles code, distributes the compiled code to the compute nodes, and assigns a portion of the data to each compute node.
+The leader node parses/develops execution plans, aka, the series of steps to obtain results for complex queries. Based on the execution plan, the leader node compiles code, distributes to the compute nodes, and assigns a portion of the data to each compute node.
 
-The leader node distributes SQL statements to the compute nodes only when a query references tables that are stored on the compute nodes. All other queries run exclusively on the leader node.
+The leader node distributes SQL statements to the compute nodes, only when a query references tables that are stored on the compute nodes. All other queries run exclusively on the leader node.
+
+For RA3, each node still only owns its shard of the table. The difference is that the shard can spill beyond the local SSD into S3. If a node needs blocks that aren't cached locally, it fetches them from S3 - but only for its portion of the table.
 
 The compute nodes run the compiled code and send intermediate results back to the leader node for final aggregation.
 
