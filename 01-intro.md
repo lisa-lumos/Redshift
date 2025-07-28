@@ -12,9 +12,9 @@ The leader node distributes SQL statements to the compute nodes, only when a que
 
 For RA3, each node still only owns its shard of the table. The difference is that the shard can spill beyond the local SSD into S3. If a node needs blocks that aren't cached locally, it fetches them from S3 - but only for its portion of the table.
 
-The compute nodes run the compiled code and send intermediate results back to the leader node for final aggregation.
+The compute nodes run the compiled code, and send intermediate results back to the leader node for final aggregation.
 
-Data warehouse data is stored in a separate storage tier Redshift Managed Storage (RMS). RMS provides the ability to scale your storage to petabytes using Amazon S3 storage. RMS lets you scale and pay for computing and storage independently, so that you can size your cluster based only on your computing needs.
+Data warehouse data is stored in a separate storage tier - Redshift Managed Storage (RMS/S3). RMS provides the ability to scale your storage to petabytes using Amazon S3 storage. RMS lets you scale and pay for computing and storage independently, so that you can size your cluster based only on your computing needs.
 
 A compute node is partitioned into slices. Each slice is allocated a portion of the node's memory and disk space, where it processes a portion of the workload assigned to the node. The leader node manages distributing data to the slices and apportions the workload for any queries or other database operations to the slices. The slices then work in parallel to complete the operation.
 
