@@ -14,13 +14,13 @@ For RA3, each node still only owns its shard of the table. The difference is tha
 
 The compute nodes run the compiled code, and send intermediate results back to the leader node for final aggregation.
 
-Data warehouse data is stored in a separate storage tier - Redshift Managed Storage (RMS/S3). RMS provides the ability to scale your storage to petabytes using Amazon S3 storage. RMS lets you scale and pay for computing and storage independently, so that you can size your cluster based only on your computing needs.
+Data warehouse data is stored in a separate storage tier - Redshift Managed Storage (RMS), which can scale your storage to petabytes using Amazon S3 storage. RMS lets you pay for computing and storage independently, so that you can size your cluster based only on computing needs.
 
-A compute node is partitioned into slices. Each slice is allocated a portion of the node's memory and disk space, where it processes a portion of the workload assigned to the node. The leader node manages distributing data to the slices and apportions the workload for any queries or other database operations to the slices. The slices then work in parallel to complete the operation.
+A compute node is partitioned into slices. Each slice is allocated a portion of the node's memory and disk space, where it processes a portion of the workload assigned to the node. The leader node distributes data and compute work to the slices. The slices then work in parallel to complete the operation.
 
-The number of slices per node is determined by the node size of the cluster.
+the cluster node size determines the number of slices in the node.
 
-When you create a table, you can optionally specify one column as the distribution key. When the table is loaded with data, the rows are distributed to the node slices according to the distribution key that is defined for a table. Choosing a good distribution key enables Amazon Redshift to use parallel processing to load data and run queries efficiently.
+When you create a table, you can optionally specify one column as the distribution key. When the table populated, its rows are distributed to the node slices according to the table's distribution key. Choosing a good distribution key enables Amazon Redshift to use parallel processing to load data and run queries efficiently.
 
 A cluster contains one or more databases. User data is stored on the compute nodes.
 
