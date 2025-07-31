@@ -22,9 +22,9 @@ the cluster node size determines the number of slices in the node.
 
 When you create a table, you can optionally specify one column as the distribution key. When the table populated, its rows are distributed to the node slices according to the table's distribution key. Choosing a good distribution key enables Amazon Redshift to use parallel processing to load data and run queries efficiently.
 
-A cluster contains one or more databases. User data is stored on the compute nodes.
+A cluster contains one or more databases. The database data is stored on the compute nodes.
 
-Amazon Redshift is based on PostgreSQL. Amazon Redshift and PostgreSQL have many differences that you need to take into account, as you design and develop your data warehouse applications.
+Amazon Redshift is based on PostgreSQL, but different from PostgreSQL.
 
 ## Performance
 By selecting an appropriate distribution key for each table, you can optimize the distribution of data to balance the workload and minimize movement of data from node to node.
