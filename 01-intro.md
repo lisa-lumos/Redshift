@@ -27,7 +27,7 @@ A cluster contains one or more databases. The database data is stored on the com
 Amazon Redshift is based on PostgreSQL, but different from PostgreSQL.
 
 ## Performance
-By selecting an appropriate distribution key for each table, you can optimize the distribution of data to balance the workload and minimize movement of data from node to node.
+Rows of a table lives in different nodes. By selecting an appropriate distribution key for each table, you can optimize the distribution of data, to balance the workload, and minimize data movement between nodes.
 
 Loading data from multiple flat files takes advantage of parallel processing by spreading the workload across multiple nodes while simultaneously reading from multiple files.
 
