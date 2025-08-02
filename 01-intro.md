@@ -20,7 +20,7 @@ A compute node is partitioned into slices. Each slice is allocated a portion of 
 
 the cluster node size determines the number of slices in the node.
 
-When you create a table, you can optionally specify one column as the distribution key. When the table populated, its rows are distributed to the node slices according to the table's distribution key. Choosing a good distribution key enables Amazon Redshift to use parallel processing to load data and run queries efficiently.
+When you create a table, you can optionally specify one column as the distribution key. When the table populated, its rows are distributed to the node slices according to the table's distribution key. Choosing a good distribution key enables Redshift to use parallel processing to load data and run queries efficiently.
 
 A cluster contains one or more databases. The database data is stored on the compute nodes.
 
@@ -33,15 +33,13 @@ Loading data from multiple flat files takes advantage of parallel processing by 
 
 Columnar storage.
 
-Data compression.
+Data compression. The best way to enable column data compression, is by allowing Redshift to apply optimal compression encodings during data loading.
 
-The best way to enable data compression on table columns is by allowing Amazon Redshift to apply optimal compression encodings when you load the table with data.
-
-Amazon Redshift caches the results of certain types of queries in memory on the leader node. When a user submits a query, Amazon Redshift checks the results cache for a valid, cached copy of the query results. If a match is found in the result cache, Amazon Redshift uses the cached results and doesn't run the query. Result caching is transparent to the user.
+Amazon Redshift caches the results of certain types of queries in memory on the leader node. When a user submits a query, Redshift checks the results cache. If a match is found, Redshift uses the cached results. Result caching is transparent to the user.
 
 Result caching is turned on by default. You can turn it off for a session with a command. 
 
-Amazon Redshift uses cached results for a new query when all of the following are true:
+Amazon Redshift uses cached results for a new query, when all of the following are true:
 - The user submitting the query has access permission to the objects used in the query.
 - The table or views in the query haven't been modified.
 - The query doesn't use a function that must be evaluated each time it's run, such as GETDATE.
