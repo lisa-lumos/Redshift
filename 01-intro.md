@@ -40,10 +40,10 @@ Amazon Redshift caches the results of certain types of queries in memory on the 
 Result caching is turned on by default. You can turn it off for a session with a command. 
 
 Amazon Redshift uses cached results for a new query, when all of the following are true:
-- The user submitting the query has access permission to the objects used in the query.
-- The table or views in the query haven't been modified.
+- The user submitting the query has access to the objects used in the query.
+- The tables/views in the query haven't been modified.
 - The query doesn't use a function that must be evaluated each time it's run, such as GETDATE.
-- The query doesn't reference Amazon Redshift Spectrum external tables.
+- The query doesn't refer Redshift Spectrum external tables.
 - Configuration parameters that might affect query results are unchanged.
 - The query syntactically matches the cached query.
 
