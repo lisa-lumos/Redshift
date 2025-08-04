@@ -35,7 +35,7 @@ Columnar storage.
 
 Data compression. The best way to enable column data compression, is by allowing Redshift to apply optimal compression encodings during data loading.
 
-Amazon Redshift caches the results of certain types of queries in memory on the leader node. When a user submits a query, Redshift checks the results cache. If a match is found, Redshift uses the cached results. Result caching is transparent to the user.
+Amazon Redshift caches the results of certain queries in memory on the leader node. When a user submits a query, Redshift checks the results cache. If a match is found, Redshift uses the cached results. Result caching is transparent to the user.
 
 Result caching is turned on by default. You can turn it off for a session with a command. 
 
@@ -47,9 +47,9 @@ Amazon Redshift uses cached results for a new query, when all of the following a
 - Configuration parameters that might affect query results are unchanged.
 - The query syntactically matches the cached query.
 
-Amazon Redshift doesn't cache some large query result sets. It determines whether to cache query results based on a number of factors, including the number of entries in the cache, and the instance type of your cluster.
+Redshift doesn't cache some large query result sets. It determines whether to cache query results based on many things, including the number of entries in the cache, and the instance type of your cluster.
 
-The compiled code is cached and shared across sessions on the same cluster. As a result, future runs of the same query will be faster, often even with different parameters.
+The compiled code is cached and shared across sessions on the same cluster. So future runs of the same query will be faster, often even with different parameters.
 
 ## Columnar storage
 An added advantage is that, since each block holds the same type of data, block data can use a compression scheme selected specifically for the column data type, further reducing disk space and I/O.
