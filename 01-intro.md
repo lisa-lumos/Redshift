@@ -52,12 +52,12 @@ Redshift doesn't cache some large query result sets. It determines whether to ca
 The compiled code is cached and shared across sessions on the same cluster. So future runs of the same query will be faster, often even with different parameters.
 
 ## Columnar storage
-An added advantage is that, since each block holds the same type of data, block data can use a compression scheme selected specifically for the column data type, further reducing disk space and I/O.
+Since each block holds the same type of data, block data can use a compression scheme selected specifically for the column data type, further reducing disk space and I/O.
 
 ## Workload management
-Amazon Redshift workload management (WLM) enables flexible management priorities within workloads so that short, fast-running queries don't get stuck in queues behind long-running queries.
+Amazon Redshift workload management (WLM) enables flexible query priorities, so that short queries don't get stuck in queues behind long-running queries.
 
-Though Manual WLM can be fine tuned over time to match your workload patterns, in most cases we discourage its use because its static nature can make it more difficult for you to adapt to changing workloads through the course of a day or over an extended period.
+Though Manual WLM can be fine tuned over time to match your workload patterns, it is usually not recommended, because its lack of flexibility.
 
 ## Using Amazon Redshift with other services
 
