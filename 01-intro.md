@@ -60,5 +60,4 @@ Amazon Redshift workload management (WLM) enables flexible query priorities, so 
 Though Manual WLM can be fine tuned over time to match your workload patterns, it is usually not recommended, because its lack of flexibility.
 
 ## Using Amazon Redshift with other services
-
-You can migrate data to Amazon Redshift using AWS Database Migration Service. AWS DMS can migrate your data to and from most widely used commercial and open-source databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, Aurora DB cluster, DynamoDB, Amazon S3, MariaDB, and MySQL.
+You can migrate data to Redshift using AWS Database Migration Service (DMS). It can migrate your data to/from most widely used commercial and open-source databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, Aurora DB cluster, DynamoDB, Amazon S3, MariaDB, and MySQL.
