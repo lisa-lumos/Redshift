@@ -28,11 +28,11 @@ When you use automatic table optimization (default), you don't need to choose th
 ## designing tables - Let COPY choose compression encodings
 You can specify compression encodings when you create a table, but in most cases, automatic compression produces the best results.
 
-ENCODE AUTO is the default for tables. When a table is set to ENCODE AUTO, Amazon Redshift automatically manages compression encoding for all columns in the table.
+ENCODE AUTO is the default for tables. When a table is set to ENCODE AUTO, Redshift automatically manages compression encoding for all columns in the table.
 
 There is a performance cost for automatic compression encoding, but only if the table is empty and does not already have compression encoding. 
 
-For short-lived tables and tables that you create frequently, such as staging tables, load the table once with automatic compression or run the ANALYZE COMPRESSION command. Then use those encodings to create new tables. You can add the encodings to the CREATE TABLE statement, or use CREATE TABLE LIKE to create a new table with the same encoding.
+For short-lived tables, and tables that you create frequently, load the table once with automatic compression, or run the ANALYZE COMPRESSION command. Then use those encodings to create new tables. You can add the encodings to the CREATE TABLE statement, or use CREATE TABLE LIKE to create a new table with the same encoding.
 
 ## designing tables - Define primary key and foreign key constraints
 Define primary key and foreign key constraints between tables wherever appropriate. Even though they are informational only, the query optimizer uses those constraints to generate more efficient query plans.
