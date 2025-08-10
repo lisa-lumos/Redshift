@@ -9,9 +9,8 @@ For quick ingestion and analysis, you can use Amazon Redshift query editor v2, t
 Autocopy (in preview) is an extension of the COPY command and automates continuous data loading from Amazon S3 buckets.
 
 ## designing tables - Choose the best sort key
-When you use automatic table optimization, you don't need to choose the sort key of your table.
+When you use automatic table optimization (default), you don't need to choose the sort key of your table, it is default to AUTO. 
 
-- To have Redshift choose the appropriate sort order, specify AUTO for the sort key. 
 - If recent data is queried most frequently, specify the timestamp column as the leading column for the sort key. 
 - If you do frequent range filtering or equality filtering on one column, specify that column as the sort key.
 - If you frequently join a table, specify the join column as both the sort key and the distribution key. So the query optimizer will choose a sort merge join, instead of a slower hash join, and bypass the sort phase of the sort merge join.
@@ -19,14 +18,12 @@ When you use automatic table optimization, you don't need to choose the sort key
 ## designing tables - Choose the best distribution style
 Determines how data is distributed across the node slices in your Redshift cluster. The goal is to minimize data movement during joins and aggregations.
 
-When you use automatic table optimization, you don't need to choose the distribution style of your table. 
+When you use automatic table optimization (default), you don't need to choose the distribution style of your table. It will be set to AUTO.
 
 1. Distribute the fact table, and one most commonly joined and large dimension table, on their common columns. Your fact table can have only one distribution key. Any tables that join on another key aren't collocated with the fact table. Designate both the dimension table's PK and the fact table's corresponding FK as the DISTKEY. 
-2. Choose the largest dimension based on the size of the filtered dataset. Only the rows that are used in the join must be distributed, so consider the size of the dataset after filtering, not the size of the table. 
-3. Choose a column with high cardinality in the filtered result set. If you distribute a sales table on a date column, you should probably get fairly even data distribution, unless most of your sales are seasonal. However, if you commonly use a range-restricted predicate to filter for a narrow date period, most of the filtered rows occur on a limited set of slices and the query workload is skewed. 
-4. Change some dimension tables to use ALL distribution. If a dimension table cannot be collocated with the fact table or other important joining tables, you can improve query performance significantly by distributing the entire table to all of the nodes. Using ALL distribution multiplies storage space requirements and increases load times and maintenance operations, so you should weigh all factors before choosing ALL distribution.
-
-To have Amazon Redshift choose the appropriate distribution style, specify AUTO for the distribution style.
+2. Choose the largest dimension based on the size of the filtered dataset (???). 
+3. Choose a column with high cardinality in the filtered result set.
+4. Change some dimension tables to use ALL distribution. If a dimension table cannot be collocated with the fact table, or other important joining tables, you can improve query performance significantly allowing all the nodes to have a copy of it. Using ALL distribution multiplies storage consumption, and increases load times etc.
 
 ## designing tables - Let COPY choose compression encodings
 You can specify compression encodings when you create a table, but in most cases, automatic compression produces the best results.
