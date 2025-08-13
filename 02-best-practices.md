@@ -40,9 +40,9 @@ Define PK and FK constraints between tables wherever appropriate. Even though th
 Amazon Redshift does not enforce unique, PK, and FK constraints.
 
 ## designing tables - Use the smallest possible column size
-Don't make it a practice to use the maximum column size for convenience. 
+Don't use the maximum column size for convenience. 
 
-Instead, consider the largest values you are likely to store in your columns and size them accordingly. For instance, a CHAR column for storing U.S. state and territory abbreviations used by the post office only needs to be CHAR(2).
+Instead, define the size based on the the largest values you are likely to store in your columns.
 
 ## designing tables - Use date/time data types for date columns
 Amazon Redshift stores DATE and TIMESTAMP data more efficiently than CHAR or VARCHAR, which results in better query performance. 
