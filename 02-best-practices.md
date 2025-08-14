@@ -37,7 +37,7 @@ For short-lived tables, and tables that you create frequently, load the table on
 ## designing tables - Define primary key and foreign key constraints
 Define PK and FK constraints between tables wherever appropriate. Even though they are informational only, the query optimizer uses those constraints to generate more efficient query plans.
 
-Amazon Redshift does not enforce unique, PK, and FK constraints.
+Redshift does not enforce unique, PK, and FK constraints.
 
 ## designing tables - Use the smallest possible column size
 Don't use the maximum column size for convenience. 
@@ -45,22 +45,20 @@ Don't use the maximum column size for convenience.
 Instead, define the size based on the the largest values you are likely to store in your columns.
 
 ## designing tables - Use date/time data types for date columns
-Amazon Redshift stores DATE and TIMESTAMP data more efficiently than CHAR or VARCHAR, which results in better query performance. 
-
-Use the DATE or TIMESTAMP data type, depending on the resolution you need, rather than a character type when storing date/time information.
+Redshift stores DATE and TIMESTAMP data more efficiently than CHAR or VARCHAR, which results in better query performance. 
 
 ## loading data - Loading data files
-The COPY command loads data in parallel from Amazon S3, Amazon EMR, Amazon DynamoDB, or multiple data sources on remote hosts. COPY loads large amounts of data much more efficiently than using INSERT statements, and stores the data more effectively as well.
+The COPY command loads data in parallel from Amazon S3, Amazon EMR, Amazon DynamoDB, or multiple data sources on remote hosts. COPY loads large amounts of data much more efficiently than using INSERT statements, and stores data more effectively.
 
-When you load data from a file that can't be split, Amazon Redshift is forced to perform a serialized load, which is much slower. 
+When you load data from a file that can't be split, Redshift is forced to perform a slow serial load. 
 
-The following files can be automatically split when their data is loaded:
+These files can be automatically split during data loading:
 - an uncompressed CSV file
 - a columnar file (Parquet/ORC)
 
 Amazon Redshift automatically splits files 128MB or larger into chunks.
 
-File types such as JSON, or CSV, when compressed with other compression algorithms, such as GZIP, aren't automatically split. For these we recommend manually splitting the data into multiple smaller files that are close in size, from 1 MB to 1 GB after compression. Additionally, make the number of files a multiple of the number of slices in your cluster.
+File types such as JSON, or CSV, when compressed, such as GZIP, aren't automatically split. For these we recommend manually splitting the data into multiple smaller files that are close in size, from 1 MB to 1 GB after compression. Additionally, make the number of files a multiple of the number of slices in your cluster.
 
 ## loading data - Compressing your data files
 When you want to compress large load files, we recommend that you use gzip, lzop, bzip2, or Zstandard to compress them and split the data into multiple smaller files.
