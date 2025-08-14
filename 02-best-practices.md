@@ -61,15 +61,13 @@ Amazon Redshift automatically splits files 128MB or larger into chunks.
 File types such as JSON, or CSV, when compressed, such as GZIP, aren't automatically split. For these we recommend manually splitting the data into multiple smaller files that are close in size, from 1 MB to 1 GB after compression. Additionally, make the number of files a multiple of the number of slices in your cluster.
 
 ## loading data - Compressing your data files
-When you want to compress large load files, we recommend that you use gzip, lzop, bzip2, or Zstandard to compress them and split the data into multiple smaller files.
+Use gzip, lzop, bzip2, or Zstandard to compress the splitted files.
 
 ## loading data - Verify data files before and after a load
 After the load operation is complete, query the STL_LOAD_COMMITS system table to verify that the expected files were loaded.
 
 ## loading data - Use a multi-row insert
-If a COPY command is not an option and you require SQL inserts, use a multi-row insert whenever possible. Data compression is inefficient when you add data only one row or a few rows at a time.
-
-Multi-row inserts improve performance by batching up a series of inserts.
+If a COPY command is not an option, and you require SQL inserts, use a multi-row insert whenever possible, as data compression more efficient with bulk inserts.
 
 ## loading data - Use a bulk insert
 Use a bulk insert operation with a SELECT clause for high-performance data insertion.
