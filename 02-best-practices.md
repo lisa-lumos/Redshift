@@ -93,9 +93,9 @@ Schedule long-running operations, such as large data loads or VACUUM operation, 
 
 ## designing queries
 - Avoid using select *. Include only the columns you need.
-- Use subqueries in cases where one table in the query is used only for predicate conditions and the subquery returns a small number of rows (less than about 200). To avoid a join. 
-- Avoid using functions in query predicates. They can drive up the cost of the query by requiring large numbers of rows to resolve the intermediate steps of the query.
-- If you use both GROUP BY and ORDER BY clauses, make sure that you put the columns in the same order in both. 
+- Use subqueries (`where my_col in (select my_col from small_table where ...)`) in cases where one table in the query is used only for predicate conditions and the subquery returns a small number of rows (less than about 200). To avoid a join. 
+- Avoid using functions in query predicates (`where func(my_col) = '...'`). They can drive up the cost of the query by requiring large numbers of rows to resolve the intermediate steps of the query.
+- If you use both GROUP BY and ORDER BY clauses, put the columns in the same order in both. 
 
 ## Viewing Amazon Redshift Advisor recommendations
 You can access Amazon Redshift Advisor recommendations using the Amazon Redshift console, Amazon Redshift API, or AWS CLI. To access recommendations you must have permission redshift:ListRecommendationsattached to your IAM role or identity.
