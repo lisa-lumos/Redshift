@@ -98,15 +98,11 @@ Schedule long-running operations, such as large data loads or VACUUM operation, 
 - If you use both GROUP BY and ORDER BY clauses, put the columns in the same order in both. 
 
 ## Viewing Amazon Redshift Advisor recommendations
-You can access Amazon Redshift Advisor recommendations using the Amazon Redshift console, Amazon Redshift API, or AWS CLI. To access recommendations you must have permission redshift:ListRecommendationsattached to your IAM role or identity.
+You can access Redshift Advisor recommendations using the Redshift console, Amazon Redshift API, or AWS CLI. Must have permission redshift:ListRecommendationsattached to your IAM role or identity.
 
-To help you  prioritize your optimizations, Advisor ranks recommendations by order of impact. 
+It ranks recommendations by order of impact, and only displays recommendations that should have a significant impact on performance and operations.
 
-Advisor only displays recommendations that should have a significant impact on performance and operations.
-
-Ensure that each COPY that loads a significant amount of data, or runs for a significant duration, ingests compressed data objects from Amazon S3.
-
-The ideal object size is 1-128 MB after compression. 
+Ensure the COPY commands that loads lots of data or time-consuming to ingest compressed data objects from Amazon S3. The ideal object size is 1-128 MB after compression. 
 
 As a best practice, we recommend isolating databases in Amazon Redshift from one another. Queries run in a specific database and can't access data from any other database on the cluster. 
 
