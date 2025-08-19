@@ -104,13 +104,11 @@ It ranks recommendations by order of impact, and only displays recommendations t
 
 Ensure the COPY commands that loads lots of data or time-consuming to ingest compressed data objects from Amazon S3. The ideal object size is 1-128 MB after compression. 
 
-As a best practice, we recommend isolating databases in Amazon Redshift from one another. Queries run in a specific database and can't access data from any other database on the cluster. 
+Recommend isolating databases in Amazon Redshift from one another - queries do not access data across databases. 
 
-Consider moving each actively queried database to a separate dedicated cluster.
+Consider moving each actively queried database to a separate dedicated cluster. Because a user must connect to each database specifically, and queries can only access a single database, moving databases to separate clusters has minimal impact for users. 
 
-Because a user must connect to each database specifically, and queries can only access a single database, moving databases to separate clusters has minimal impact for users. 
-
-Workload  management (WLM) defines how queries are routed to the queues. Amazon Redshift allocates each queue a portion of the cluster's available memory. A queue's memory is divided  among the queue's query slots. 
+Workload  management (WLM) defines how queries are routed to the queues. Each queue is allocated a portion of the cluster's memory, which is then divided among the queue's query slots. 
 
 Consider reducing the configured slot count for queues where the slots have never been fully used.
 
