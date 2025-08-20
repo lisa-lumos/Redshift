@@ -104,17 +104,17 @@ It ranks recommendations by order of impact, and only displays recommendations t
 
 Ensure the COPY commands that loads lots of data or time-consuming to ingest compressed data objects from Amazon S3. The ideal object size is 1-128 MB after compression. 
 
-Recommend isolating databases in Amazon Redshift from one another - queries do not access data across databases. 
+Recommend isolating databases in Redshift from one another - queries do not access data across databases. 
 
 Consider moving each actively queried database to a separate dedicated cluster. Because a user must connect to each database specifically, and queries can only access a single database, moving databases to separate clusters has minimal impact for users. 
 
 Workload  management (WLM) defines how queries are routed to the queues. Each queue is allocated a portion of the cluster's memory, which is then divided among the queue's query slots. 
 
-Consider reducing the configured slot count for queues where the slots have never been fully used.
+Consider reducing the queue's slot count, if the slots have never been fully used.
 
-When you load data into an empty table with compression encoding declared with the COPY command, Amazon Redshift applies storage compression. This optimization ensures that data in your cluster is stored efficiently even when loaded by end users. The analysis required to apply compression can require significant time. 
+When you load data into an empty table with compression encoding declared with the COPY command, Redshift applies storage compression. The analysis required to apply compression can require significant time. 
 
-When you load data as part of a structured process, such as in an overnight extract, transform, load (ETL) batch, you can define the compression beforehand. You can also optimize your table definitions to skip this phase permanently without any negative impacts. 
+For scheduled data load, you can define the compression beforehand. You can also optimize your table definitions to skip this permanently, without any negative impacts. 
 
 Use the column ENCODE parameter when creating any tables that you load using the COPY command. 
 
