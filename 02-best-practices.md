@@ -116,19 +116,13 @@ When you load data into an empty table with compression encoding declared with t
 
 For scheduled data load, you can define the compression beforehand. You can also optimize your table definitions to skip this permanently, without any negative impacts. 
 
-Use the column ENCODE parameter when creating any tables that you load using the COPY command. 
+Use the column ENCODE parameter when creating any tables that you load using the COPY command. The best solution is to use column encoding during table creation, because this also maintains the benefit of storing compressed data on disk. 
 
-The best solution is to use column encoding during table creation, because this also maintains the benefit of storing compressed data on disk. 
-
-Ensure that all tables of significant size created during your ETL processes (for example, staging tables and temporary tables) declare a compression encoding for all columns except the first sort key. 
+Ensure that all large tables declare a compression encoding for all columns except the first sort key. 
 
 If you are confident that the table will remain extremely small, turn off compression altogether with the COMPUPDATE OFF parameter. Otherwise, create the table with explicit compression before loading it with the COPY command. 
 
-1. Optimize COPY commands that load fewer files than the number of cluster nodes.  
-2. Optimize COPY commands that load fewer files than the number of cluster slices.  
-3. Optimize COPY commands where the number of files is not a multiple of the number of cluster  slices. 
-
-The number of slices in a node depends on the node size of the cluster.
+Optimize COPY commands where the number of files is not a multiple of the number of cluster slices. 
 
 Amazon Redshift doesn't take file size into account when dividing the workload. Split your load  data files so that the files are about equal size, between 1 MB and 1 GB after compression. 
 
