@@ -108,7 +108,7 @@ Recommend isolating databases in Redshift from one another - queries do not acce
 
 Consider moving each actively queried database to a separate dedicated cluster. Because a user must connect to each database specifically, and queries can only access a single database, moving databases to separate clusters has minimal impact for users. 
 
-Workload  management (WLM) defines how queries are routed to the queues. Each queue is allocated a portion of the cluster's memory, which is then divided among the queue's query slots. 
+Workload management (WLM) defines how queries are routed to the queues. Each queue is allocated a portion of the cluster's memory, which is then divided among the queue's query slots. 
 
 Consider reducing the queue's slot count, if the slots have never been fully used.
 
@@ -122,28 +122,26 @@ Ensure that all large tables declare a compression encoding for all columns exce
 
 If you are confident that the table will remain extremely small, turn off compression altogether with the COMPUPDATE OFF parameter. Otherwise, create the table with explicit compression before loading it with the COPY command. 
 
-Optimize COPY commands where the number of files is not a multiple of the number of cluster slices. 
+Optimize COPY commands where the number of files is not a multiple of the number of cluster slices. Split your load data files so that the files are about equal size, between 1 MB and 1 GB after compression. 
 
-Amazon Redshift doesn't take file size into account when dividing the workload. Split your load  data files so that the files are about equal size, between 1 MB and 1 GB after compression. 
+The cost estimates are based on table statistics gathered using the ANALYZE command. When statistics are out of date or missing, the database might choose a less efficient plan for query execution, especially for complex queries. Maintaining current statistics helps complex queries run in the shortest possible time. 
 
-The cost estimates are based on table statistics gathered using the ANALYZE command.  When statistics are out of date or missing, the database might choose a less efficient plan for query  execution, especially for complex queries. Maintaining current statistics helps complex queries run  in the shortest possible time. 
+Recommend running ANALYZE whenever a significant number of new data rows are loaded into an existing table with COPY/INSERT commands.
 
-We recommend  running ANALYZE whenever a significant number of new data rows are loaded into an existing  table with COPY or INSERT commands.
+The default ANALYZE threshold is 10%, so it skips the table if fewer than 10% of the table's rows have changed since the last ANALYZE. So you should run ANALYZE commands at the end of each ETL process. 
 
-The default ANALYZE threshold is 10%. This default means that the ANALYZE command  skips a given table if fewer than 10% of the table's rows have changed since the last  ANALYZE. As a result, you might choose to issue ANALYZE commands at the end of each ETL  process. Taking this approach means that ANALYZE is often skipped but also ensures that ANALYZE  runs when needed. 
+By default, ANALYZE collects statistics for all columns in the table specified. If needed, you can reduce the time required to run ANALYZE by running ANALYZE only for the columns where it has the most impact.
 
-By default, ANALYZE  collects statistics for all columns in the table specified. If needed, you can reduce the time required  to run ANALYZE by running ANALYZE only for the columns where it has the most impact.
+You can also let Amazon Redshift choose which columns to analyze by specifying ANALYZE PREDICATE COLUMNS. 
 
-You can also let Amazon  Redshift choose which columns to analyze by specifying ANALYZE PREDICATE COLUMNS. 
+Short query acceleration (SQA) prioritizes selected short-running queries ahead of longer-running queries. SQA runs short-running queries in a dedicated space, so that SQA queries aren't forced to wait in queues behind longer queries. SQA only prioritizes queries that are short-running and are in a user-defined queue.
 
-Short query acceleration (SQA) prioritizes selected short-running queries ahead of longer-running  queries. SQA runs short-running queries in a dedicated space, so that SQA queries aren't forced to  wait in queues behind longer queries. SQA only prioritizes queries that are short-running and are in  a user-defined queue.
+An appropriate DISTKEY places a similar number of rows on each node slice and is frequently referenced in join conditions. An optimized join occurs when tables are joined on their DISTKEY columns, accelerating query performance. 
 
-An appropriate DISTKEY places a similar number of rows on each node slice and is frequently  referenced in join conditions. An optimized join occurs when tables are joined on their DISTKEY  columns, accelerating query performance. 
+Redistributing a large table with ALTER TABLE consumes cluster resources and requires temporary table locks at various times. Implement each recommendation group when other cluster workload is light. For more details on optimizing table distribution properties. 
 
-Redistributing a large table with ALTER TABLE consumes cluster resources and requires temporary  table locks at various times. Implement each recommendation group when other cluster workload  is light. For more details on optimizing table distribution properties. 
+In practice, compound sort keys are more effective than interleaved sort keys for the vast majority of Amazon Redshift workloads.
 
-In practice, compound sort keys are more effective than interleaved sort  keys for the vast majority of Amazon Redshift workloads.
+If a table is small, it's more efficient not to have a sort key to avoid sort key storage overhead. 
 
-If a table is small, it's more  efficient not to have a sort key to avoid sort key storage overhead. 
-
-Changing column compression encodings with ALTER TABLE consumes cluster resources and  requires table locks at various times. It's best to implement recommendations when the cluster  workload is light. 
+Changing column compression encodings with ALTER TABLE consumes cluster resources and requires table locks at various times. It's best to implement recommendations when the cluster workload is light. 
