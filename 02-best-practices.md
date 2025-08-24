@@ -130,15 +130,13 @@ Recommend running ANALYZE whenever a significant number of new data rows are loa
 
 The default ANALYZE threshold is 10%, so it skips the table if fewer than 10% of the table's rows have changed since the last ANALYZE. So you should run ANALYZE commands at the end of each ETL process. 
 
-By default, ANALYZE collects statistics for all columns in the table specified. If needed, you can reduce the time required to run ANALYZE by running ANALYZE only for the columns where it has the most impact.
+By default, ANALYZE collects statistics for all columns in the table specified. If needed, you can reduce the time required to run ANALYZE by running ANALYZE only for the columns where it has the most impact. You can also let Redshift choose which columns to analyze, by specifying ANALYZE PREDICATE COLUMNS. 
 
-You can also let Amazon Redshift choose which columns to analyze by specifying ANALYZE PREDICATE COLUMNS. 
+Short query acceleration (SQA) prioritizes selected short-running queries and are in a user-defined queue. SQA runs these queries in a dedicated space, so that SQA queries aren't forced to wait in queues behind longer queries. 
 
-Short query acceleration (SQA) prioritizes selected short-running queries ahead of longer-running queries. SQA runs short-running queries in a dedicated space, so that SQA queries aren't forced to wait in queues behind longer queries. SQA only prioritizes queries that are short-running and are in a user-defined queue.
+An appropriate DISTKEY places a similar number of rows on each node slice, and is frequently referenced in join conditions. An optimized join occurs when tables are joined on their DISTKEY columns. 
 
-An appropriate DISTKEY places a similar number of rows on each node slice and is frequently referenced in join conditions. An optimized join occurs when tables are joined on their DISTKEY columns, accelerating query performance. 
-
-Redistributing a large table with ALTER TABLE consumes cluster resources and requires temporary table locks at various times. Implement each recommendation group when other cluster workload is light. For more details on optimizing table distribution properties. 
+Redistributing a large table with ALTER TABLE consumes cluster resources, and requires temporary table locks at various times. Implement when other cluster workload is light.
 
 In practice, compound sort keys are more effective than interleaved sort keys for the vast majority of Amazon Redshift workloads.
 
