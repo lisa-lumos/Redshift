@@ -136,10 +136,10 @@ Short query acceleration (SQA) prioritizes selected short-running queries and ar
 
 An appropriate DISTKEY places a similar number of rows on each node slice, and is frequently referenced in join conditions. An optimized join occurs when tables are joined on their DISTKEY columns. 
 
-Redistributing a large table with ALTER TABLE consumes cluster resources, and requires temporary table locks at various times. Implement when other cluster workload is light.
+Redistributing a large table with ALTER TABLE consumes cluster resources, and requires table locks at various times. Implement when other cluster workload is light.
 
 Compound sort keys are more effective than interleaved sort keys for most Redshift workloads.
 
 If a table is small, it's more efficient not to have a sort key, to avoid sort key storage overhead. 
 
-Changing column compression encodings with ALTER TABLE consumes cluster resources and requires table locks at various times. It's best to implement recommendations when the cluster workload is light. 
+Changing column compression encodings with ALTER TABLE consumes cluster resources, and requires table locks at various times. Implement when the cluster workload is light. 
