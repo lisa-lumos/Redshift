@@ -7,24 +7,6 @@ To create a UDF, you must have usage privilege on SQL or Python. By default, usa
 
 A function is identified by its name and signature. 
 
-Best practices:
-- Name all UDFs using the prefix `f_`
+Best practice: Name all UDFs using the prefix `f_`
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+When Python UDFs use data type ANYELEMENT, it get converted into a standard type based on the supplied val at runtime. 
